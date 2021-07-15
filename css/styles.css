@@ -1,0 +1,37 @@
+body {
+    font-family: 'Creepster', cursive;
+    text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Creepster";
+    font-weight: 900;
+}
+
+p {
+    color: #8f8f8f;
+}
+
+.big-heading {
+    font-family: "Creepster";
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.5;
+}
+
+.section-heading {
+    font-size: 3rem;
+    line-height: 1.5rem;
+}
+
+/* Containers */
+.container-fluid {
+    padding: 7% 15%;
+}
+
+/* Section */
+.colored-section {
+    background-color: #548f5e;
+    color: #2d343c;
+}
+
