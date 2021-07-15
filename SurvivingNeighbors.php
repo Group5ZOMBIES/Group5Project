@@ -1,7 +1,7 @@
 <?php include "../inc/dbinfo.inc"; ?>
 <html>
 <body>
-<h1>Health Survey</h1>
+<h1>Sample page</h1>
 <?php
 
   /* Connect to MySQL and select the database. */
@@ -11,20 +11,18 @@
 
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  /* Ensure that the Zombies table exists. */
-  VerifyZombiesTable($connection, DB_DATABASE);
+  /* Ensure that the EMPLOYEES table exists. */
+  VerifySurvivorsTable($connection, DB_DATABASE);
 
-  /* If input fields are populated, add a row to the Zombies table. */
-  $name = htmlentities($_POST['NAME']);
-  $address = htmlentities($_POST['ADDRESS']);
-  $date = htmlentities($_POST['DATE']);
-  $age = htmlentities($_POST['AGE']);
-  $gender = htmlentities($_POST['GENDER']);
-  $symptoms = htmlentities($_POST['SYMPTOMS']);
+  /* If input fields are populated, add a row to the EMPLOYEES table. */
+  $survivor_name= htmlentities($_POST['NAME']);
+  $survivor_address= htmlentities($_POST['ADDRESS']);
+  $survivor_ssn= htmlentities($_POST['SSN']);
+  $survivor_age= htmlentities($_POST['AGE']);
+  $survivor_gender= htmlentities($_POST['GENDER']);
   
-  
-  if (strlen($name) || strlen($address) || strlen($date) || strlen($age) || strlen($gender) || strlen($symptoms)) {
-    AddZombie($connection, $name, $address, $date, $age, $gender, $symptoms);
+  if (strlen($survivor_name) || strlen($survivor_address) || strlen($survivor_ssn) || strlen($survivor_age) || strlen($survivor_gender)) {
+    AddSurvivor($connection, $survivor_name, $survivor_address, $survivor_ssn, $survivor_age, $survivor_gender);
   }
 ?>
 
@@ -34,10 +32,9 @@
     <tr>
       <td>NAME</td>
       <td>ADDRESS</td>
-      <td>DATE</td>
+      <td>SSN</td>
       <td>AGE</td>
       <td>GENDER</td>
-      <td>SYMPTOMS</td>
     </tr>
     <tr>
       <td>
@@ -47,16 +44,13 @@
         <input type="text" name="ADDRESS" maxlength="90" size="60" />
       </td>
       <td>
-        <input type="text" name="DATE" maxlength="45" size="30" />
+        <input type="text" name="SSN" maxlength="12" size="30" />
       </td>
       <td>
-        <input type="text" name="AGE" maxlength="45" size="30" />
+        <input type="text" name="AGE" maxlength="12" size="30" />
       </td>
       <td>
-        <input type="text" name="GENDER" maxlength="45" size="30" />
-      </td>
-      <td>
-        <input type="text" name="SYMPTOMS" maxlength="300" size="30" />
+        <input type="text" name="GENDER" maxlength="12" size="30" />
       </td>
       <td>
         <input type="submit" value="Add Data" />
@@ -68,14 +62,16 @@
 <!-- Display table data. -->
 <table border="1" cellpadding="2" cellspacing="2">
   <tr>
-    <td>ID</td>
     <td>NAME</td>
     <td>ADDRESS</td>
+    <td>SSN</td>
+    <td>AGE</td>
+    <td>GENDER</td>
   </tr>
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM EMPLOYEES");
+$result = mysqli_query($connection, "SELECT * FROM Survivors");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
@@ -138,4 +134,4 @@ function TableExists($tableName, $connection, $dbName) {
 
   return false;
 }
-?>                    
+?>     

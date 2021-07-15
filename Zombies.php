@@ -1,7 +1,7 @@
 <?php include "../inc/dbinfo.inc"; ?>
 <html>
 <body>
-<h1>Sample page</h1>
+<h1>Zombies</h1>
 <?php
 
   /* Connect to MySQL and select the database. */
@@ -11,15 +11,24 @@
 
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  /* Ensure that the EMPLOYEES table exists. */
-  VerifyEmployeesTable($connection, DB_DATABASE);
+  /* Ensure that the Zombies table exists. */
+  VerifyZombiesTable($connection, DB_DATABASE);
 
-  /* If input fields are populated, add a row to the EMPLOYEES table. */
-  $employee_name = htmlentities($_POST['NAME']);
-  $employee_address = htmlentities($_POST['ADDRESS']);
+  /* If input fields are populated, add a row to the Zombies table. */
+  $zombie_name = htmlentities($_POST['NAME']);
+  $zombie_address = htmlentities($_POST['ADDRESS']);
+  $zombie_datebitten = htmlentities($_POST['DATE BITTEN']);
+  $zombie_ssn = htmlentities($_POST['SSN']);
+  $zombie_knownwhereabouts = htmlentities($_POST['KNOWN WHEREABOUTS']);
+  $zombie_age = htmlentities($_POST['AGE']);
+  $zombie_gender = htmlentities($_POST['GENDER']);
+  $zombie_symptoms = htmlentities($_POST['SYMPTOMS']);
+  
 
-  if (strlen($employee_name) || strlen($employee_address)) {
-    AddEmployee($connection, $employee_name, $employee_address);
+  if (strlen($zombie_name) || strlen($zombie_address) || strlen($zombie_datebitten) || strlen($zombie_ssn) || strlen($zombie_knownwhereabouts)
+  || strlen($zombie_age) || strlen($zombie_gender) || strlen($zombie_symptoms)) {
+    AddZombie($connection, $zombie_name, $zombie_address, $zombie_datebitten, $zombie_ssn, $zombie_knownwhereabouts,$zombie_age, 
+    $zombie_gender, $zombie_symptoms);
   }
 ?>
 
@@ -29,6 +38,12 @@
     <tr>
       <td>NAME</td>
       <td>ADDRESS</td>
+      <td>DATE BITTEN</td>
+      <td>SSN</td>
+      <td>KNOWN WHEREABOUTS</td>
+      <td>AGE</td>
+      <td>GENDER</td>
+      <td>SYMPTOMS</td>
     </tr>
     <tr>
       <td>
@@ -36,6 +51,24 @@
       </td>
       <td>
         <input type="text" name="ADDRESS" maxlength="90" size="60" />
+      </td>
+      <td>
+        <input type="text" name="DATE BITTEN" maxlength="10" size="30" />
+      </td>
+      <td>
+        <input type="text" name="SSN" maxlength="12" size="30" />
+      </td>
+      <td>
+        <input type="text" name="KNOWN WHEREABOUTS" maxlength="200" size="60" />
+      </td>
+      <td>
+        <input type="text" name="AGE" maxlength="3" size="30" />
+      </td>
+      <td>
+        <input type="text" name="GENDER" maxlength="4" size="30" />
+      </td>
+      <td>
+        <input type="text" name="SYMPTOMS" maxlength="200" size="30" />
       </td>
       <td>
         <input type="submit" value="Add Data" />
@@ -50,17 +83,31 @@
     <td>ID</td>
     <td>NAME</td>
     <td>ADDRESS</td>
+    <td>DATE BITTEN</td>
+    <td>SSN</td>
+    <td>KNOWN WHEREABOUTS</td>
+    <td>AGE</td>
+    <td>GENDER</td>
+    <td>SYMPTOMS</td>
   </tr>
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM EMPLOYEES");
+$result = mysqli_query($connection, "SELECT * FROM ZOMBIES");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
-  echo "<td>",$query_data[0], "</td>",
+  echo "<td>",$query_data[0], "</td>", //this corresponds to the amount of columns in the previous table tag that we just added to
        "<td>",$query_data[1], "</td>",
-       "<td>",$query_data[2], "</td>";
+       "<td>",$query_data[2], "</td>",
+       "<td>",$query_data[3], "</td>",
+       "<td>",$query_data[4], "</td>",
+       "<td>",$query_data[5], "</td>",
+       "<td>",$query_data[6], "</td>",
+       "<td>",$query_data[7], "</td>",
+       "<td>",$query_data[8], "</td>",
+       "<td>",$query_data[9], "</td>";
+       
   echo "</tr>";
 }
 ?>
@@ -82,9 +129,15 @@ while($query_data = mysqli_fetch_row($result)) {
 <?php
 
 /* Add an employee to the table. */
-function AddEmployee($connection, $name, $address) {
-   $n = mysqli_real_escape_string($connection, $name);
-   $a = mysqli_real_escape_string($connection, $address);
+function AddZombie($connection, $zombie_name, $zombie_address, $zombie_datebitten, $zombie_ssn, $zombie_knownwhereabouts, $zombie_age, 
+    $zombie_gender, $zombie_symptoms) {
+   $n = mysqli_real_escape_string($connection, $zombie_name);
+   $a = mysqli_real_escape_string($connection, $zombie_address);
+   $db = mysqli_real_escape_string($connection, $zombie_datebitten);
+   $ssn = mysqli_real_escape_string($connection, $zombie_ssn);
+   $k = mysqli_real_escape_string($connection, $zombie_knownwhereabouts);
+   $age = mysqli_real_escape_string($connection, $zombie_age);
+   $g = mysqli_real_escape_string($connection, $zombie_gender);
 
    $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$n', '$a');";
 

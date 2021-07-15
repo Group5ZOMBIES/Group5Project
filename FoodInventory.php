@@ -1,7 +1,7 @@
 <?php include "../inc/dbinfo.inc"; ?>
 <html>
 <body>
-<h1>Health Survey</h1>
+<h1>Food Inventory</h1>
 <?php
 
   /* Connect to MySQL and select the database. */
@@ -11,20 +11,16 @@
 
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  /* Ensure that the Zombies table exists. */
-  VerifyZombiesTable($connection, DB_DATABASE);
+  /* Ensure that the FOOD INVENTORY table exists. */
+  VerifyFoodInventoryTable($connection, DB_DATABASE);
 
-  /* If input fields are populated, add a row to the Zombies table. */
-  $name = htmlentities($_POST['NAME']);
-  $address = htmlentities($_POST['ADDRESS']);
-  $date = htmlentities($_POST['DATE']);
-  $age = htmlentities($_POST['AGE']);
-  $gender = htmlentities($_POST['GENDER']);
-  $symptoms = htmlentities($_POST['SYMPTOMS']);
-  
-  
-  if (strlen($name) || strlen($address) || strlen($date) || strlen($age) || strlen($gender) || strlen($symptoms)) {
-    AddZombie($connection, $name, $address, $date, $age, $gender, $symptoms);
+  /* If input fields are populated, add a row to the FOOD INVENTORY table. */
+  $food_item = htmlentities($_POST['FOOD_ITEM']);
+  $food_amount = htmlentities($_POST['FOOD_AMOUNT']);
+  $food_location = htmlentities($_POST['FOOD_LOCATION']);
+
+  if (strlen($food_item) || strlen($food_amount) || strlen($food_location)) {
+    AddFoodInventory($connection, $food_item, $food_amount, $food_location);
   }
 ?>
 
@@ -32,31 +28,19 @@
 <form action="<?PHP echo $_SERVER['SCRIPT_NAME'] ?>" method="POST">
   <table border="0">
     <tr>
-      <td>NAME</td>
-      <td>ADDRESS</td>
-      <td>DATE</td>
-      <td>AGE</td>
-      <td>GENDER</td>
-      <td>SYMPTOMS</td>
+      <td>ITEM</td>
+      <td>AMOUNT</td>
+      <td>LOCATION</td>
     </tr>
     <tr>
       <td>
-        <input type="text" name="NAME" maxlength="45" size="30" />
+        <input type="text" name="ITEM" maxlength="45" size="30" />
       </td>
       <td>
-        <input type="text" name="ADDRESS" maxlength="90" size="60" />
+        <input type="text" name="AMOUNT" maxlength="45" size="30" />
       </td>
       <td>
-        <input type="text" name="DATE" maxlength="45" size="30" />
-      </td>
-      <td>
-        <input type="text" name="AGE" maxlength="45" size="30" />
-      </td>
-      <td>
-        <input type="text" name="GENDER" maxlength="45" size="30" />
-      </td>
-      <td>
-        <input type="text" name="SYMPTOMS" maxlength="300" size="30" />
+        <input type="text" name="LOCATION" maxlength="90" size="60" />
       </td>
       <td>
         <input type="submit" value="Add Data" />
@@ -69,8 +53,9 @@
 <table border="1" cellpadding="2" cellspacing="2">
   <tr>
     <td>ID</td>
-    <td>NAME</td>
-    <td>ADDRESS</td>
+    <td>ITEM</td>
+    <td>AMOUNT</td>
+    <td>LOCATION</td>
   </tr>
 
 <?php
@@ -102,24 +87,26 @@ while($query_data = mysqli_fetch_row($result)) {
 
 <?php
 
-/* Add an employee to the table. */
-function AddEmployee($connection, $name, $address) {
-   $n = mysqli_real_escape_string($connection, $name);
-   $a = mysqli_real_escape_string($connection, $address);
+/* Add the food inventory to the table. */
+function AddFoodInventory($connection, $item, $amount, $location) {
+   $i = mysqli_real_escape_string($connection, $item);
+   $a = mysqli_real_escape_string($connection, $amount);
+   $l = mysqli_real_escape_string($connection, $location);
 
-   $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$n', '$a');";
+   $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$i', '$a', '$l');";
 
-   if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
+   if(!mysqli_query($connection, $query)) echo("<p>Error adding foood inventory data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
-function VerifyEmployeesTable($connection, $dbName) {
+function VerifyFoodInventoryTable($connection, $dbName) {
   if(!TableExists("EMPLOYEES", $connection, $dbName))
   {
-     $query = "CREATE TABLE EMPLOYEES (
+     $query = "CREATE TABLE FOOD INVENTORY (
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-         NAME VARCHAR(45),
-         ADDRESS VARCHAR(90)
+         ITEM VARCHAR(45),
+         AMOUNT VARCHAR(45),
+         LOCATION VARCHAR(90)
        )";
 
      if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");
