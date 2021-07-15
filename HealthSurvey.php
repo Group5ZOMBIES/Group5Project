@@ -71,17 +71,25 @@
     <td>ID</td>
     <td>NAME</td>
     <td>ADDRESS</td>
+    <td>DATE</td>
+    <td>AGE</td>
+    <td>GENDER</td>
+    <td>SYMPTOMS</td>
   </tr>
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM EMPLOYEES");
+$result = mysqli_query($connection, "SELECT * FROM ZOMBIES");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
   echo "<td>",$query_data[0], "</td>",
        "<td>",$query_data[1], "</td>",
-       "<td>",$query_data[2], "</td>";
+       "<td>",$query_data[2], "</td>",
+       "<td>",$query_data[3], "</td>",
+       "<td>",$query_data[4], "</td>",
+       "<td>",$query_data[5], "</td>",
+       "<td>",$query_data[6], "</td>";
   echo "</tr>";
 }
 ?>
@@ -102,24 +110,32 @@ while($query_data = mysqli_fetch_row($result)) {
 
 <?php
 
-/* Add an employee to the table. */
-function AddEmployee($connection, $name, $address) {
+/* Add a zombie to the table. */
+function AddHealthSurvey($connection, $name, $address, $date, $age, $gender, $symptoms) {
    $n = mysqli_real_escape_string($connection, $name);
    $a = mysqli_real_escape_string($connection, $address);
+   $d = mysqli_real_escape_string($connection, $date);
+   $age = mysqli_real_escape_string($connection, $age);
+   $g = mysqli_real_escape_string($connection, $gender);
+   $s = mysqli_real_escape_string($connection, $symptoms);
 
-   $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$n', '$a');";
+   $query = "INSERT INTO HEALTH_SURVEY (NAME, ADDRESS, DATE, AGE, GENDER, SYMPTOMS) VALUES ('$n', '$a', '$d', '$age', '$g', '$s');";
 
    if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
-function VerifyEmployeesTable($connection, $dbName) {
-  if(!TableExists("EMPLOYEES", $connection, $dbName))
+function VerifyHealthSurveyTable($connection, $dbName) {
+  if(!TableExists("HEALTH_SURVEY", $connection, $dbName))
   {
-     $query = "CREATE TABLE EMPLOYEES (
+     $query = "CREATE TABLE HEALTH_SURVEY (
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          NAME VARCHAR(45),
-         ADDRESS VARCHAR(90)
+         ADDRESS VARCHAR(90), 
+         DATE VARCHAR(10), 
+         AGE VARCHAR(3), 
+         GENDER VARCHAR(15), 
+         SYMPTOMS VARCHAR(250)
        )";
 
      if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");
@@ -132,7 +148,7 @@ function TableExists($tableName, $connection, $dbName) {
   $d = mysqli_real_escape_string($connection, $dbName);
 
   $checktable = mysqli_query($connection,
-      "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+      "SELECT HEALTH_SURVEY FROM sample.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
 
   if(mysqli_num_rows($checktable) > 0) return true;
 

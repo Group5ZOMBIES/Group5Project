@@ -17,9 +17,9 @@
   /* If input fields are populated, add a row to the Zombies table. */
   $zombie_name = htmlentities($_POST['NAME']);
   $zombie_address = htmlentities($_POST['ADDRESS']);
-  $zombie_datebitten = htmlentities($_POST['DATE BITTEN']);
+  $zombie_datebitten = htmlentities($_POST['DATE_BITTEN']);
   $zombie_ssn = htmlentities($_POST['SSN']);
-  $zombie_knownwhereabouts = htmlentities($_POST['KNOWN WHEREABOUTS']);
+  $zombie_knownwhereabouts = htmlentities($_POST['KNOWN_WHEREABOUTS']);
   $zombie_age = htmlentities($_POST['AGE']);
   $zombie_gender = htmlentities($_POST['GENDER']);
   $zombie_symptoms = htmlentities($_POST['SYMPTOMS']);
@@ -105,8 +105,7 @@ while($query_data = mysqli_fetch_row($result)) {
        "<td>",$query_data[5], "</td>",
        "<td>",$query_data[6], "</td>",
        "<td>",$query_data[7], "</td>",
-       "<td>",$query_data[8], "</td>",
-       "<td>",$query_data[9], "</td>";
+       "<td>",$query_data[8], "</td>";
        
   echo "</tr>";
 }
@@ -138,20 +137,28 @@ function AddZombie($connection, $zombie_name, $zombie_address, $zombie_datebitte
    $k = mysqli_real_escape_string($connection, $zombie_knownwhereabouts);
    $age = mysqli_real_escape_string($connection, $zombie_age);
    $g = mysqli_real_escape_string($connection, $zombie_gender);
+   $s = mysqli_real_escape_string($connection, $zombie_symptoms);
 
-   $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$n', '$a');";
+   $query = "INSERT INTO ZOMBIES (NAME, ADDRESS, DATE_BITTEN, KNOWN_WHEREABOUTS, AGE, GENDER, SYMPTOMS) 
+   VALUES ('$n', '$a', '$db', '$ssn', '$k', '$age', '$g', '$s');";
 
-   if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
+   if(!mysqli_query($connection, $query)) echo("<p>Error adding zombie data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
-function VerifyEmployeesTable($connection, $dbName) {
-  if(!TableExists("EMPLOYEES", $connection, $dbName))
+function VerifyZombiesTable($connection, $dbName) {
+  if(!TableExists("ZOMBIES", $connection, $dbName))
   {
-     $query = "CREATE TABLE EMPLOYEES (
+     $query = "CREATE TABLE ZOMBIES (
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          NAME VARCHAR(45),
-         ADDRESS VARCHAR(90)
+         ADDRESS VARCHAR(90),
+         DATE_BITTEN VARCHAR(10),
+         SSN VARCHAR(12),
+         KNOWN_WHEREABOUTS VARCHAR(90),
+         AGE VARCHAR(3),
+         GENDER VARCHAR(4),
+         SYMPTOMS VARCHAR(200)
        )";
 
      if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");
@@ -164,7 +171,7 @@ function TableExists($tableName, $connection, $dbName) {
   $d = mysqli_real_escape_string($connection, $dbName);
 
   $checktable = mysqli_query($connection,
-      "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+      "SELECT ZOMBIES FROM sample.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
 
   if(mysqli_num_rows($checktable) > 0) return true;
 

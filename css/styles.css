@@ -36,7 +36,7 @@ p {
 }
 
 .white-section {
-    background-color: #7c9480;
+    background-color: #f5faf6;
 }
 
 /* Navigation Bar */
@@ -67,7 +67,26 @@ p {
 }
 
 .title-image {
-    width: 60%;
+    width: 30%;
     position: absolute;
     right: 30%;
+}
+
+/* Tips Section */
+.tips-icon {
+    color: #000000;
+}
+
+
+
+/* Footer Section */
+.social-icon {
+    margin:20px 10px;
+}
+
+/* Executes when screen is 1028px or smaller */
+@media (max-width: 1028px) {
+    #title {
+        text-align: center;
+    }
 }

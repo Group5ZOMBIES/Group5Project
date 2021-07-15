@@ -60,7 +60,7 @@
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM EMPLOYEES");
+$result = mysqli_query($connection, "SELECT * FROM FOOD INVENTORY");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
@@ -93,14 +93,14 @@ function AddFoodInventory($connection, $item, $amount, $location) {
    $a = mysqli_real_escape_string($connection, $amount);
    $l = mysqli_real_escape_string($connection, $location);
 
-   $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$i', '$a', '$l');";
+   $query = "INSERT INTO FOOD INVENTORY (ITEM, AMOUNT, LOCATION) VALUES ('$i', '$a', '$l');";
 
    if(!mysqli_query($connection, $query)) echo("<p>Error adding foood inventory data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
 function VerifyFoodInventoryTable($connection, $dbName) {
-  if(!TableExists("EMPLOYEES", $connection, $dbName))
+  if(!TableExists("FOOD INVENTORY", $connection, $dbName))
   {
      $query = "CREATE TABLE FOOD INVENTORY (
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

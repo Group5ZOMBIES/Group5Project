@@ -1,7 +1,7 @@
 <?php include "../inc/dbinfo.inc"; ?>
 <html>
 <body>
-<h1>Sample page</h1>
+<h1>Surviving Neighbors</h1>
 <?php
 
   /* Connect to MySQL and select the database. */
@@ -11,10 +11,10 @@
 
   $database = mysqli_select_db($connection, DB_DATABASE);
 
-  /* Ensure that the EMPLOYEES table exists. */
+  /* Ensure that the add AddSurvivor table exists. */
   VerifySurvivorsTable($connection, DB_DATABASE);
 
-  /* If input fields are populated, add a row to the EMPLOYEES table. */
+  /* If input fields are populated, add a row to the AddSurvivor table. */
   $survivor_name= htmlentities($_POST['NAME']);
   $survivor_address= htmlentities($_POST['ADDRESS']);
   $survivor_ssn= htmlentities($_POST['SSN']);
@@ -71,13 +71,14 @@
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM Survivors");
+$result = mysqli_query($connection, "SELECT * FROM SURVIVORS");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
   echo "<td>",$query_data[0], "</td>",
        "<td>",$query_data[1], "</td>",
-       "<td>",$query_data[2], "</td>";
+       "<td>",$query_data[2], "</td>",
+       "<td>",$query_data[3], "</td>";
   echo "</tr>";
 }
 ?>
@@ -99,23 +100,28 @@ while($query_data = mysqli_fetch_row($result)) {
 <?php
 
 /* Add an employee to the table. */
-function AddEmployee($connection, $name, $address) {
+function AddSurvivor($connection, $name, $address, $ssn, $age, $gender) {
    $n = mysqli_real_escape_string($connection, $name);
    $a = mysqli_real_escape_string($connection, $address);
-
-   $query = "INSERT INTO EMPLOYEES (NAME, ADDRESS) VALUES ('$n', '$a');";
+   $s = mysqli_real_escape_string($connection, $ssn);
+   $ag = mysqli_real_escape_string($connection, $age);
+   $g = mysqli_real_escape_string($connection, $gender);
+   $query = "INSERT INTO SURVIVORS (NAME, ADDRESS, SSN, AGE, GENDER) VALUES ('$n', '$a', '$s', '$ag', '$g');";
 
    if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
-function VerifyEmployeesTable($connection, $dbName) {
-  if(!TableExists("EMPLOYEES", $connection, $dbName))
+function VerifySurvivorsTable($connection, $dbName) {
+  if(!TableExists("SURVIVORS", $connection, $dbName))
   {
-     $query = "CREATE TABLE EMPLOYEES (
+     $query = "CREATE TABLE SURVIVORS(
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          NAME VARCHAR(45),
-         ADDRESS VARCHAR(90)
+         ADDRESS VARCHAR(90),
+         SSN VARCHAR(45),
+         AGE VARCHAR(45),
+         GENDER VARCHAR(45)
        )";
 
      if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");
@@ -128,7 +134,7 @@ function TableExists($tableName, $connection, $dbName) {
   $d = mysqli_real_escape_string($connection, $dbName);
 
   $checktable = mysqli_query($connection,
-      "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+      "SELECT SURVIVORS FROM sample.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
 
   if(mysqli_num_rows($checktable) > 0) return true;
 
