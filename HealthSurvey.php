@@ -121,7 +121,7 @@ function AddHealthSurvey($connection, $name, $address, $date, $age, $gender, $sy
 
    $query = "INSERT INTO HEALTH_SURVEY (NAME, ADDRESS, DATE, AGE, GENDER, SYMPTOMS) VALUES ('$n', '$a', '$d', '$age', '$g', '$s');";
 
-   if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
+   if(!mysqli_query($connection, $query)) echo("<p>Error adding health survey data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */

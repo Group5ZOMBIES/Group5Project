@@ -47,10 +47,10 @@
         <input type="text" name="SSN" maxlength="12" size="30" />
       </td>
       <td>
-        <input type="text" name="AGE" maxlength="12" size="30" />
+        <input type="text" name="AGE" maxlength="3" size="30" />
       </td>
       <td>
-        <input type="text" name="GENDER" maxlength="12" size="30" />
+        <input type="text" name="GENDER" maxlength="4" size="30" />
       </td>
       <td>
         <input type="submit" value="Add Data" />
@@ -62,6 +62,7 @@
 <!-- Display table data. -->
 <table border="1" cellpadding="2" cellspacing="2">
   <tr>
+    <td>ID</td>
     <td>NAME</td>
     <td>ADDRESS</td>
     <td>SSN</td>
@@ -78,7 +79,9 @@ while($query_data = mysqli_fetch_row($result)) {
   echo "<td>",$query_data[0], "</td>",
        "<td>",$query_data[1], "</td>",
        "<td>",$query_data[2], "</td>",
-       "<td>",$query_data[3], "</td>";
+       "<td>",$query_data[3], "</td>",
+       "<td>",$query_data[4], "</td>",
+       "<td>",$query_data[5], "</td>";
   echo "</tr>";
 }
 ?>
@@ -108,7 +111,7 @@ function AddSurvivor($connection, $name, $address, $ssn, $age, $gender) {
    $g = mysqli_real_escape_string($connection, $gender);
    $query = "INSERT INTO SURVIVORS (NAME, ADDRESS, SSN, AGE, GENDER) VALUES ('$n', '$a', '$s', '$ag', '$g');";
 
-   if(!mysqli_query($connection, $query)) echo("<p>Error adding employee data.</p>");
+   if(!mysqli_query($connection, $query)) echo("<p>Error adding survivor data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
@@ -119,9 +122,9 @@ function VerifySurvivorsTable($connection, $dbName) {
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          NAME VARCHAR(45),
          ADDRESS VARCHAR(90),
-         SSN VARCHAR(45),
-         AGE VARCHAR(45),
-         GENDER VARCHAR(45)
+         SSN VARCHAR(12),
+         AGE VARCHAR(3),
+         GENDER VARCHAR(4)
        )";
 
      if(!mysqli_query($connection, $query)) echo("<p>Error creating table.</p>");

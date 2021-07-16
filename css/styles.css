@@ -73,9 +73,41 @@ p {
 }
 
 /* Tips Section */
+#tips {
+    position: relative;
+    background-color: #fff5e9;
+    z-index: 1;
+}
+
+.tips-title {
+    font-size: 1.5rem;
+}
+
+.tips-box {
+    padding: 4.5%;
+}
+
 .tips-icon {
     color: #000000;
+    margin-bottom: 1rem;
 }
+
+/* Survivor Stories Section */ 
+#survivorstories {
+    background-color: #ffdecf;
+}
+
+.survivorstories-text {
+    font-size:3rem;
+    line-height: 1.5;
+}
+
+.survivorstories-image {
+    width: 10%;
+    border-radius: 100%;
+    margin: 20px;
+}
+
 
 
 
@@ -89,4 +121,21 @@ p {
     #title {
         text-align: center;
     }
+}
+
+/* Containers */
+.top-container {
+    background-color: #e3dfc8;
+    position:relative;
+    padding: 100px 0 50px 0;
+}
+
+.middle-container {
+    background-color: #FFFFFF;
+    margin: 100px 0;
+}
+
+.bottom-container {
+    background-color: #eebb4d;
+    padding: 50px 0 20px 0;
 }

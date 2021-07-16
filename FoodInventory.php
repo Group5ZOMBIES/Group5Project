@@ -60,13 +60,14 @@
 
 <?php
 
-$result = mysqli_query($connection, "SELECT * FROM FOOD INVENTORY");
+$result = mysqli_query($connection, "SELECT * FROM FOOD_INVENTORY");
 
 while($query_data = mysqli_fetch_row($result)) {
   echo "<tr>";
   echo "<td>",$query_data[0], "</td>",
        "<td>",$query_data[1], "</td>",
-       "<td>",$query_data[2], "</td>";
+       "<td>",$query_data[2], "</td>",
+       "<td>",$query_data[3], "</td>";
   echo "</tr>";
 }
 ?>
@@ -93,16 +94,16 @@ function AddFoodInventory($connection, $item, $amount, $location) {
    $a = mysqli_real_escape_string($connection, $amount);
    $l = mysqli_real_escape_string($connection, $location);
 
-   $query = "INSERT INTO FOOD INVENTORY (ITEM, AMOUNT, LOCATION) VALUES ('$i', '$a', '$l');";
+   $query = "INSERT INTO FOOD_INVENTORY (ITEM, AMOUNT, LOCATION) VALUES ('$i', '$a', '$l');";
 
    if(!mysqli_query($connection, $query)) echo("<p>Error adding foood inventory data.</p>");
 }
 
 /* Check whether the table exists and, if not, create it. */
 function VerifyFoodInventoryTable($connection, $dbName) {
-  if(!TableExists("FOOD INVENTORY", $connection, $dbName))
+  if(!TableExists("FOOD_INVENTORY", $connection, $dbName))
   {
-     $query = "CREATE TABLE FOOD INVENTORY (
+     $query = "CREATE TABLE FOOD_INVENTORY (
          ID int(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
          ITEM VARCHAR(45),
          AMOUNT VARCHAR(45),
@@ -119,7 +120,7 @@ function TableExists($tableName, $connection, $dbName) {
   $d = mysqli_real_escape_string($connection, $dbName);
 
   $checktable = mysqli_query($connection,
-      "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+      "SELECT FOOD_INVENTORY FROM sample.TABLES WHERE FOOD_INVENTORY = '$t' AND TABLE_SCHEMA = '$d'");
 
   if(mysqli_num_rows($checktable) > 0) return true;
 

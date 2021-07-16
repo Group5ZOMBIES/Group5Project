@@ -171,7 +171,7 @@ function TableExists($tableName, $connection, $dbName) {
   $d = mysqli_real_escape_string($connection, $dbName);
 
   $checktable = mysqli_query($connection,
-      "SELECT ZOMBIES FROM sample.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
+      "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_NAME = '$t' AND TABLE_SCHEMA = '$d'");
 
   if(mysqli_num_rows($checktable) > 0) return true;
 
