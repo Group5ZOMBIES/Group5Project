@@ -6,15 +6,24 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: "Creepster";
     font-weight: 900;
+    text-align: center;
+}
+
+a:hover{
+  background-color: #C6E9FF;
 }
 
 p {
     color: #8f8f8f;
 }
 
+button{
+  display: none;
+}
+
 .big-heading {
     font-family: "Creepster";
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 900;
     line-height: 1.5;
 }
@@ -60,6 +69,33 @@ p {
     font-weight: 200;
 }
 
+@media only screen and (max-width: 500px) {
+  ul{
+    flex-direction: column;
+  }
+  
+  a{
+    display: block;
+  }
+  
+  li{
+    margin: 0;
+  }
+  
+  button{
+    display: block;
+    
+    padding: 2vw;
+    font-size: 3vh;
+    background-color: #AFE0FF;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    
+    align-self: flex-start;
+  }
+}
+
 /* Title Section */
 #title .container-fluid {
     padding: 3% 15% 7%;
@@ -67,7 +103,7 @@ p {
 }
 
 .title-image {
-    width: 30%;
+    width: 75%;
     position: absolute;
     right: 30%;
 }

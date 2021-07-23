@@ -1,4 +1,39 @@
+<!DOCTYPE html>
 <?php include "../inc/dbinfo.inc"; ?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Group 5 Members">
+    <meta name="description" content="Group 5's Internship Project"
+    <!-- Bootstrap CSS Style Sheets -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     <!--This is where we put the .css file after bootstrap to override Bootstrap styling -->
+    <link rel="stylesheet" href="css/sample_style.css">
+    <script src="sample.js"></script>
+     <!--Font Awesome (icons) -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/3ba8aa97bb.js" crossorigin="anonymous"></script>
+     <!--TODO: Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Creepster&family=Ubuntu" rel="stylesheet">
+    <!--Bootstrap Scripts -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <title>sample</title>
+</head>
+
+<nav id="floatingMenu">
+        <ul>
+                <button> </button>
+                <li><a href="index.html"> Home </a></li>
+                <li><a href="http://ec2-34-205-161-96.compute-1.amazonaws.com/Attacks.php"> Zombie Attacks </a></li>
+                <li><a href="http://ec2-34-205-161-96.compute-1.amazonaws.com/SurvivingNeighbors.php"> Survivors </a></li>
+                <li><a href="http://ec2-34-205-161-96.compute-1.amazonaws.com/HealthSurvey.php"> Health Survey </a></li>
+                <li><a href="http://ec2-34-205-161-96.compute-1.amazonaws.com/FoodInventory.php"> Food Inventory </a></li>
+        </ul>
+</nav>
+
 <html>
 <body>
 <h1>Health Survey</h1>

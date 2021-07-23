@@ -1,0 +1,169 @@
+li{
+        list-style-type: none;
+        margin: 0 2vw;
+        text-align: center;
+        font-size: 5vh
+}
+
+a{      
+        text-decoration: none;
+        color: #57FF32; 
+        padding: 2vw;
+        font-family: Creepster;
+}
+
+a:hover{
+        background-color: #548f5e; 
+}
+
+nav{
+        width: 100vw;
+        background-color: #000000;
+        color: #57FF32;
+         z-index:300;
+}
+
+#floatingMenu{
+        position: sticky;
+        top: 0;
+}
+
+ul{
+        margin: 0;
+        padding: 0;
+        
+        display: flex;
+        text-align: center;
+}
+
+button{
+        display: none;
+}
+
+body{
+        margin: 0;
+}
+
+/* Containers */
+.container-fluid {
+    padding: 7% 15%;
+}
+
+p { 
+    text-align: center;
+    font-size: 40px;
+    font-family: Creepster;
+}
+
+@media only screen and (max-width: 500 px){
+
+        button{
+                display: block;
+
+                padding: 2vw;
+                font-size: 3vh;
+                background-color: #548f5e;
+                border: none;
+
+                outline: none;
+                cursor: pointer;
+                align-self: flex-start;
+        }
+
+        ul{
+                flex-direction: column;
+        }
+
+        li{
+                margin: 0;
+        }
+
+        a{
+                display: block;
+        }
+}
+
+section {
+      height: 80vh;
+  }
+
+/* Navigation Bar Section */
+#section1{
+        background-color: #000000;
+        color: #3db324;
+}
+
+.title-image {
+    float:right;
+    margin-left: 20px;
+    width: 50%;
+    position: absolute;
+    top: 30%;
+    right: 30%;
+}
+ 
+#section2{
+	background-color: #3db324;
+	color: #000000;
+}
+
+
+/* Tips Section */
+#section3{
+	background-color: #000000;
+}
+
+#tips {
+    position: relative;
+    background-color: #fff5e9;
+    z-index: 1;
+}
+
+.tips-title {
+    font-size: 1.5rem;
+    font-family: "Creepster";
+}
+
+.tips-box {
+    padding: 4.5%;
+}
+
+.tips-icon {
+    color: #000000;
+    margin-bottom: 1rem;
+}
+
+
+/* Footer Section */
+#section4{
+	background-color: #3db324;
+	color: #000000;
+}
+
+.social-icon {
+    margin-bottom: 30px;
+    margin-right: 10px;
+    text-align: center;
+}
+  
+.big-heading {
+    font-family: "Creepster";
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1.5;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 2.5em;
+}
+
+.big-heading2 {
+    font-family: "Creepster";
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1.5;
+    margin: 0;
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 1em;
+}
